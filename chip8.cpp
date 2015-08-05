@@ -358,11 +358,11 @@ void chip8::emulateCycle()
 	if(delay_timer > 0)
 		--delay_timer;
 
-	if(sound_timer > 0)
+	if(sound_timer != 0)
 	{
+		printf("Beep") // replace with actual sound function sometime.
 		if(sound_timer == 1)
-			printf("BEEP!\n");
-		--sound_timer;
+			--sound_timer;
 	}
 }
 
