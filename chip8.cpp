@@ -424,7 +424,7 @@ bool chip8::loadApplication(const char * filename)
 			memory[i + 512] = buffer[i];
 	}
 	else
-		printf("Error: ROM too big for memory");
+		printf("obviously the provided file is not an CHIP8 rom");
 
 	// Close file, free buffer
 	fclose(pFile);
