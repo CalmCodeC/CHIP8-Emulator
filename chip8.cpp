@@ -51,7 +51,6 @@ void chip8::init()
 	// Clear screen once
 	drawFlag = true;
 
-	srand (time(NULL));
 }
 
 void chip8::emulateCycle()
