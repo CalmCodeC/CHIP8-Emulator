@@ -3,16 +3,14 @@
 #include "chip8.h"
 #include <iostream.h>
 
-// Display size
-#define SCREEN_WIDTH 64
-#define SCREEN_HEIGHT 32
+
 
 chip8 myChip8;
 int modifier = 10;
 
 // Window size
-int display_width = SCREEN_WIDTH * modifier;
-int display_height = SCREEN_HEIGHT * modifier;
+int display_width = 64 * modifier; 
+int display_height = 32 * modifier;
 
 void display();
 void reshape_window(GLsizei w, GLsizei h);
@@ -22,7 +20,7 @@ void keyboardDown(unsigned char key, int x, int y);
 // Use new drawing method
 #define DRAWWITHTEXTURE
 typedef unsigned __int8 u8;
-u8 screenData[SCREEN_HEIGHT][SCREEN_WIDTH][3];
+u8 screenData[64][32][3];
 void setupTexture();
 
 int main(int argc, char **argv)
@@ -59,12 +57,12 @@ int main(int argc, char **argv)
 
 void setupTexture()
 {
-	for(int y = 0; y < SCREEN_HEIGHT; ++y)
-		for(int x = 0; x < SCREEN_WIDTH; ++x)
+	for(int y = 0; y < 32; ++y)
+		for(int x = 0; x < 64; ++x)
 			screenData[y][x][0] = screenData[y][x][1] = screenData[y][x][2] = 0; // clear it up 
 
 	/
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, (GLvoid*)screenData);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 64, 32, 0, GL_RGB, GL_UNSIGNED_BYTE, (GLvoid*)screenData);
 
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -87,7 +85,7 @@ void updateTexture(const chip8& c8)
 				screenData[y][x][0] = screenData[y][x][1] = screenData[y][x][2] = 255;  // Enabled
 
 	// Update Texture
-	glTexSubImage2D(GL_TEXTURE_2D, 0 ,0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, (GLvoid*)screenData);
+	glTexSubImage2D(GL_TEXTURE_2D, 0 ,0, 0, 64, 32, GL_RGB, GL_UNSIGNED_BYTE, (GLvoid*)screenData);
 
 	glBegin( GL_QUADS );
 		glTexCoord2d(0.0, 0.0);		glVertex2d(0.0,			  0.0);
